@@ -7,7 +7,7 @@ LINKERFLAGS = -lm
 SRCS := $(wildcard *.cpp)
 OBJS := $(SRCS:%.cpp=%.o)
 
-EXE := test
+EXE := build		#name of executable
 
 # all: ${BINS}
 # 
@@ -38,4 +38,5 @@ ${EXE}: ${OBJS}
 
 clean:
 	@echo "Cleaning up..."
-	rm ${EXE}
+	rm -f ${EXE}
+	rm *.o
