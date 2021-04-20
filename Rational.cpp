@@ -22,83 +22,82 @@ RatNum::RatNum() {
 
 
 
-RatNum RatNum::operator+(int n) const {
-    return *this + RatNum(n);
-}
-RatNum RatNum::operator-(int n) const {
-    return *this - RatNum(n);
-}
-RatNum RatNum::operator*(int n) const {
-    return *this * RatNum(n);
-}
-RatNum RatNum::operator/(int n) const {
-    return *this / RatNum(n);
-}
 
-
-
-RatNum RatNum::operator+(const RatNum& r) const {
+RatNum operator+(const RatNum& l, const RatNum& r) {
     RatNum result;
     //check if defined
-    if (undefined || r.undefined) {
+    if (l.undefined || r.undefined) {
         result = RatNum(0, 0);
         result.undefined = true;
         return result;
     }
 
-    int d = lcm(den, r.den);
-    int n = ((d/den) * num) + ((d/r.den) * r.num);
+    int d = lcm(l.den, r.den);
+    int n = ((d/l.den) * l.num) + ((d/r.den) * r.num);
 
     result = RatNum(n, d);
     result.simplify();
 
     return result;
 }
-RatNum RatNum::operator-(const RatNum& r) const {
+RatNum operator-(const RatNum& l, const RatNum& r) {
     RatNum result;
     //check if defined
-    if (undefined || r.undefined) {
+    if (l.undefined || r.undefined) {
         result = RatNum(0, 0);
         result.undefined = true;
         return result;
     }
 
-    int d = lcm(den, r.den);
-    int n = ((d/den) * num) - ((d/r.den) * r.num);
+    int d = lcm(l.den, r.den);
+    int n = ((d/l.den) * l.num) - ((d/r.den) * r.num);
 
     result = RatNum(n, d);
     result.simplify();
     
     return result;
 }
-RatNum RatNum::operator*(const RatNum& r) const {
+
+RatNum operator*(const RatNum& l, const RatNum& r) {
     RatNum result;
     //check if defined
-    if (undefined || r.undefined) {
+    if (l.undefined || r.undefined) {
         result = RatNum(0, 0);
         result.undefined = true;
         return result;
     }
     
-    result = RatNum(num * r.num, den * r.den);
+    result = RatNum(l.num * r.num, l.den * r.den);
     result.simplify();
 
     return result;
 }
-RatNum RatNum::operator/(const RatNum& r) const {
+RatNum operator/(const RatNum& l, const RatNum& r) {
     RatNum result;
     //check if defined
-    if (undefined || r.undefined) {
+    if (l.undefined || r.undefined) {
         result = RatNum(0, 0);
         result.undefined = true;
         return result;
     }
 
-    result = RatNum(num * r.den, den * r.num);
+    result = RatNum(l.num * r.den, l.den * r.num);
     result.simplify();
 
     return result;
 }
+
+
+
+// std::istream& operator>>(std::istream& ins, RatNum& num) {
+//     ins >> num;
+//     return ins;
+// }
+std::ostream& operator<<(std::ostream& outs, const RatNum& num) {
+    outs << num.str();
+    return outs;
+}
+
 
 std::string RatNum::str() const {
     if (undefined) {
@@ -138,32 +137,4 @@ void RatNum::simplify() {
     if (sign < 0) 
         num = 0 - num;
 
-}
-
-int RatNum:: gcf(int a, int b) const {
-    int u = max(abs(a), abs(b));
-    int v = min(abs(a), abs(b));
-    int r = u % v;
-
-    while (r != 0) {
-        u = v;
-        v = r;
-        r = u % v;
-    }
-
-    return v;
-}
-
-int RatNum::lcm(int a, int b) const {
-    return (a * b) / gcf(a, b);
-}
-
-int RatNum::max(int a, int b) const {
-    return (a > b) ? a : b;
-}
-int RatNum::min(int a, int b) const {
-    return (a < b) ? a : b;
-}
-int RatNum::abs(int n) const {
-    return (n < 0) ? 0 - n : n;
 }

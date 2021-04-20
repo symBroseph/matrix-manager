@@ -2,6 +2,8 @@
 #define __RatNum__
 
 #include <string>
+#include <iostream>
+#include "helper.h"
 
 class RatNum {
 
@@ -12,11 +14,6 @@ private:
     bool undefined;
 
     void simplify();
-    int gcf(int, int) const;
-    int lcm(int, int) const;
-    int max(int, int) const;
-    int min(int, int) const;
-    int abs(int) const;
 
 public:
 
@@ -24,15 +21,14 @@ public:
     RatNum(int);
     RatNum(int, int);
 
-    RatNum operator+(int) const;
-    RatNum operator-(int) const;
-    RatNum operator*(int) const;
-    RatNum operator/(int) const;
 
-    RatNum operator+(const RatNum&) const;
-    RatNum operator-(const RatNum&) const;
-    RatNum operator*(const RatNum&) const;
-    RatNum operator/(const RatNum&) const;
+    friend RatNum operator+(const RatNum&, const RatNum&);
+    friend RatNum operator-(const RatNum&, const RatNum&);
+    friend RatNum operator*(const RatNum&, const RatNum&);
+    friend RatNum operator/(const RatNum&, const RatNum&);
+
+    // friend std::istream& operator>>(std::istream&, RatNum&);
+    friend std::ostream& operator<<(std::ostream&, const RatNum&);
 
     std::string str() const;
 
