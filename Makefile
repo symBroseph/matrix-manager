@@ -2,23 +2,40 @@
 
 CC = g++
 
+LINKERFLAGS = -lm
+
 SRCS := $(wildcard *.cpp)
-BINS := $(SRCS:%.cpp=%)
+OBJS := $(SRCS:%.cpp=%.o)
 
-all: ${BINS}
+EXE := test
 
-%: %.o
-	@echo "Linking files..."
-	${CC} $< -o $@
+# all: ${BINS}
+# 
+# %: %.o
+# 	@echo "Linking files..."
+# 	${CC} ${LINKERFLAGS} $< -o $@
+# 
+# 
+# %.o: %.c
+# 	@echo "Creating objects..."
+# 	${CC} -c $<
+# 
+# 
+# clean:
+# 	@echo "cleaning up..."
+# 	trash *.o ${BINS}
 
 
-%.o: %.c
+all: ${EXE}
+
+${EXE}: ${OBJS}
+	@echo "Linking..."
+	${CC} -o $@ $^
+
+%.o: %.cpp
 	@echo "Creating objects..."
 	${CC} -c $<
 
-
 clean:
-	@echo "cleaning up..."
-	trash *.o ${BINS}
-
-
+	@echo "Cleaning up..."
+	rm ${EXE}
