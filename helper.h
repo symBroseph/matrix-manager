@@ -1,32 +1,39 @@
-#ifndef _HELPER_
-#define _HELPER_
+// #pragma once
 
-int gcf(int a, int b) {
-    int u = max(abs(a), abs(b));
-    int v = min(abs(a), abs(b));
-    int r = u % v;
+#ifndef __HELPER__
+#define __HELPER__
 
-    while (r != 0) {
-        u = v;
-        v = r;
-        r = u % v;
+
+namespace help {
+
+    static int max(int a, int b) {
+        return (a > b) ? a : b;
+    }
+    static int min(int a, int b) {
+        return (a < b) ? a : b;
+    }
+    static int abs(int n) {
+        return (n < 0) ? 0 - n : n;
     }
 
-    return v;
-}
+    static int gcf(int a, int b) {
+        int u = max(abs(a), abs(b));
+        int v = min(abs(a), abs(b));
+        int r = u % v;
 
-int lcm(int a, int b) {
-    return (a * b) / gcf(a, b);
-}
+        while (r != 0) {
+            u = v;
+            v = r;
+            r = u % v;
+        }
 
-int max(int a, int b) {
-    return (a > b) ? a : b;
-}
-int min(int a, int b) {
-    return (a < b) ? a : b;
-}
-int abs(int n) {
-    return (n < 0) ? 0 - n : n;
+        return v;
+    }
+
+    static int lcm(int a, int b) {
+        return (a * b) / gcf(a, b);
+    }
+
 }
 
 

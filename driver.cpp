@@ -1,4 +1,5 @@
 #include "Rational.h"
+#include "helper.h"
 #include <iostream>
 
 
@@ -30,22 +31,22 @@ int main() {
     RatNum quo2 = num3 / num4;
 
     
-    print(num1);
-    print(num2);
-    print(num3);
-    print(num4);
+    cout << num1 << endl;
+    cout << num2 << endl;
+    cout << num3 << endl;
+    cout << num4 << endl;
     
-    print(sum1);
-    print(sum2);
+    cout << sum1 << endl;
+    cout << sum2 << endl;
 
-    print(dif1);
-    print(dif2);
+    cout << dif1 << endl;
+    cout << dif2 << endl;
 
-    print(prod1);
-    print(prod2);
+    cout << prod1 << endl;
+    cout << prod2 << endl;
 
-    print(quo1);
-    print(quo2);
+    cout << quo1 << endl;
+    cout << quo2 << endl;
 
 
 

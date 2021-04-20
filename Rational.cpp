@@ -1,5 +1,7 @@
 #include "Rational.h"
 
+using namespace std;
+
 
 RatNum::RatNum(int n, int d) {
     num = n;
@@ -32,7 +34,7 @@ RatNum operator+(const RatNum& l, const RatNum& r) {
         return result;
     }
 
-    int d = lcm(l.den, r.den);
+    int d = help::lcm(l.den, r.den);
     int n = ((d/l.den) * l.num) + ((d/r.den) * r.num);
 
     result = RatNum(n, d);
@@ -49,7 +51,7 @@ RatNum operator-(const RatNum& l, const RatNum& r) {
         return result;
     }
 
-    int d = lcm(l.den, r.den);
+    int d = help::lcm(l.den, r.den);
     int n = ((d/l.den) * l.num) - ((d/r.den) * r.num);
 
     result = RatNum(n, d);
@@ -125,7 +127,7 @@ void RatNum::simplify() {
     }
 
     //reduce
-    int f = gcf(num, den);
+    int f = help::gcf(num, den);
     num /= f;
     den /= f;
 
