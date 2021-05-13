@@ -4,33 +4,26 @@ CC = g++
 
 LINKERFLAGS = -lm
 
-SRCS := $(wildcard *.cpp)
+SRCS := $(wildcard classes/*.cpp)
 OBJS := $(SRCS:%.cpp=%.o)
+DRIVER := driver.cpp
+TESTER := test.cpp
 
 EXE := build		#name of executable
 
-# all: ${BINS}
-# 
-# %: %.o
-# 	@echo "Linking files..."
-# 	${CC} ${LINKERFLAGS} $< -o $@
-# 
-# 
-# %.o: %.c
-# 	@echo "Creating objects..."
-# 	${CC} -c $<
-# 
-# 
-# clean:
-# 	@echo "cleaning up..."
-# 	trash *.o ${BINS}
 
 
 all: ${EXE}
 
-${EXE}: ${OBJS}
-	@echo "Linking..."
+${EXE}: ${OBJS} ${DRIVER}
+	@echo "Building..."
 	${CC} -o $@ $^
+
+test: ${OBJS} ${TESTER}
+	@echo "Creating test..."
+	${CC} -o $@ $^
+	@echo "Running test..."
+	./$@
 
 %.o: %.cpp
 	@echo "Creating objects..."
@@ -39,4 +32,5 @@ ${EXE}: ${OBJS}
 clean:
 	@echo "Cleaning up..."
 	rm -f ${EXE}
+	rm -f test
 	rm *.o
